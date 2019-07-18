@@ -6,17 +6,15 @@ a python bridge to javascript libraries for the Gluon-Plasma based Leverj.io Spo
 
 
 ##### setup
-> make sure the following virtual env exists: .env/python3
-> it can be created via: 
+> ensure the following virtual env exists: `.env/python3`, i.e.: 
 
 ```shell
 $ mkdir .env
 $ python3 -m venv .env/python3
 ```
-then:
+> then:
 
 ```shell
-$ yarn
 $ source setup.sh
 ```
 

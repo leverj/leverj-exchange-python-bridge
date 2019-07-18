@@ -9,4 +9,5 @@ pip install .
 
 # for development
 pip install -e .[dev]
-python setup.py yarn --init
+yarn
+#python setup.py yarn --init
