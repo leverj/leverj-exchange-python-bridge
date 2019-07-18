@@ -1,40 +1,50 @@
+import json
+import sys
+import subprocess
 from setuptools import setup, find_packages
+from setuptools.command.develop import develop
+from setuptools.command.install import install
 
+with open('package.json') as f:
+  package_json=json.loads(f.read())
+version=package_json['version']
+name=package_json['name']
 
-with open("README.md") as f:
-  readme = f.read()
+def yarn():
+  subprocess.run('yarn install --production=true'.split())
 
-with open("package.json") as f:
-  package_json = f.read()
+class PostDevelopCommand(develop):
+  def run(self):
+    yarn()
+    develop.run(self)
 
-# package_json = {
-#   "dependencies": {
-#     "@leverj/adapter": "0.1.22",
-#     "dashdash": "^1.14.1"
-#   }
-# }
+class PostInstallCommand(install):
+  def run(self):
+    yarn()
+    install.run(self)
+
 
 setup(
-  name="leverj_spot_exchange_bridge",
-#   version="0.1.22",
-  version="0.0.1",
-  description="Python bridge for Leverj.io Spot Exchange",
-  long_description=readme,
-  long_description_content_type="text/markdown",
-  author="https://github.com/leverj/leverj-mm/leverj_spot_exchange_bridge",
-  url="https://leverj.io/",
-  license="MIT",
-  packages=find_packages(exclude=("tests")),
+  name=name,
+  version=version,
+  description='Python bridge for Leverj.io Spot Exchange',
+  long_description='a python bridge to javascript libraries for Leverj.io Spot Exchange',
+  author='leverj',
+  url='http://leverj.io',
+  license='MIT',
+  packages=find_packages(exclude=['tests', 'tests.*']),
   classifiers=[
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+    'Programming Language :: Python :: 3',
+    'License :: OSI Approved :: MIT License',
+    'Operating System :: OS Independent',
   ],
-  install_requires=["setuptools"],
-  setup_requires=["calmjs", "nose"],
-  extras_require={
-    "dev": ["calmjs", "nose"],
-  },
-  package_json=package_json,
-  test_suite="nose.collector"
+  python_requires='>=3.7',
+  cmdclass={'develop': PostDevelopCommand, 'install': PostInstallCommand},
+  install_requires=['setuptools'],
+  setup_requires=['nose'],
+  extras_require={'dev': ['nose']},
+  data_files=[('', [f'{name}/api.js', 'package.json', 'yarn.lock'])],
+  test_suite='nose.collector',
+  entry_points={'console_scripts': [f'run_js={name}:run_js']},
+  project_urls={'Source': f'https://github.com/leverj/{name}'}
 )

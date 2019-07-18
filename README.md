@@ -1,29 +1,40 @@
 # Leverj.io Spot Exchange Python Bridge
 
-#### description
+## description
 
-a python bridge to javascript libraries for the Gluon-Plasma based Leverj.io Spot DEX
+a python bridge to javascript libraries for Leverj.io Spot Exchange
 
-
-##### setup
-> ensure the following virtual env exists: `.env/python3`, i.e.: 
-
+### Installation
+> ensure `node` and `yarn` are installed on target machine
 ```shell
-$ mkdir .env
-$ python3 -m venv .env/python3
+$ pip install leverj_exchange_python_bridge
 ```
-> then:
 
+### Usage
+```python
+run_js(command, arguments_as_dictionary)
+```
+######_commnads_
+- sign_order
+- compute_signature_for_order
+- compute_signature_for_exchange_order
+
+
+
+### Development
+
+#### setup
+> ensure a python3 virtual env exists in `.venv`, i.e.: `python3 -m venv .venv`
 ```shell
 $ source setup.sh
 ```
 
-##### test
+#### test
 ```shell
 $ nosetests
 ```
 
-##### build
+#### build
 ```shell
 $ python setup.py sdist
 ```

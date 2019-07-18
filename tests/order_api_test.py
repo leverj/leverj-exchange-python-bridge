@@ -1,5 +1,5 @@
 from nose.tools import *
-from leverj_spot_exchange_bridge import *
+from leverj_exchange_python_bridge import *
 
 buy = {
   'order': {

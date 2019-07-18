@@ -1,2 +1,0 @@
-include yarn.lock
-include leverj_spot_exchange_bridge/api.js
