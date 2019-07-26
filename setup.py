@@ -38,7 +38,7 @@ setup(
     'License :: OSI Approved :: MIT License',
     'Operating System :: OS Independent',
   ],
-  python_requires='>=3.7',
+  python_requires='>=3.6',
   cmdclass={'develop': PostDevelopCommand, 'install': PostInstallCommand},
   install_requires=['setuptools'],
   setup_requires=['nose'],
